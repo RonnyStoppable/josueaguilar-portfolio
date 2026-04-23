@@ -1,0 +1,558 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Josue A. Aguilar</title>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #f7f5f0;
+      --ink: #1a1814;
+      --muted: #6b6760;
+      --accent: #c0522a;
+      --rule: #dedad4;
+      --card: #ffffff;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--ink);
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 300;
+      line-height: 1.7;
+      overflow-x: hidden;
+    }
+
+    /* NAV */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 1.25rem 5vw;
+      background: rgba(247,245,240,0.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--rule);
+    }
+    .nav-logo {
+      font-family: 'DM Serif Display', serif;
+      font-size: 1.15rem;
+      letter-spacing: 0.01em;
+      color: var(--ink);
+      text-decoration: none;
+    }
+    .nav-links { display: flex; gap: 2rem; list-style: none; }
+    .nav-links a {
+      font-size: 0.8rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--muted);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--accent); }
+
+    /* HERO */
+    #hero {
+      min-height: 100vh;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      align-items: center;
+      padding: 8rem 5vw 5rem;
+      gap: 4rem;
+    }
+    .hero-text { animation: fadeUp 0.9s ease both; }
+    .hero-eyebrow {
+      font-size: 0.72rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 1.2rem;
+    }
+    .hero-name {
+      font-family: 'DM Serif Display', serif;
+      font-size: clamp(3rem, 6vw, 5.5rem);
+      line-height: 1.05;
+      margin-bottom: 1.5rem;
+    }
+    .hero-name em { font-style: italic; color: var(--accent); }
+    .hero-bio {
+      font-size: 1.05rem;
+      color: var(--muted);
+      max-width: 42ch;
+      margin-bottom: 2.5rem;
+    }
+    .hero-cta {
+      display: inline-block;
+      padding: 0.85rem 2.2rem;
+      background: var(--ink);
+      color: #fff;
+      font-size: 0.8rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      text-decoration: none;
+      border-radius: 2px;
+      transition: background 0.2s, transform 0.15s;
+    }
+    .hero-cta:hover { background: var(--accent); transform: translateY(-2px); }
+
+    .hero-stat-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+      animation: fadeUp 0.9s 0.2s ease both;
+    }
+    .stat-card {
+      background: var(--card);
+      border: 1px solid var(--rule);
+      padding: 1.8rem 1.6rem;
+      border-radius: 4px;
+    }
+    .stat-card:first-child { grid-column: 1 / -1; background: var(--ink); color: #fff; }
+    .stat-num {
+      font-family: 'DM Serif Display', serif;
+      font-size: 2.8rem;
+      line-height: 1;
+      margin-bottom: 0.3rem;
+    }
+    .stat-card:first-child .stat-num { color: var(--accent); }
+    .stat-label { font-size: 0.78rem; letter-spacing: 0.08em; text-transform: uppercase; opacity: 0.6; }
+
+    /* SECTIONS */
+    section { padding: 6rem 5vw; }
+    .section-header {
+      display: flex;
+      align-items: baseline;
+      gap: 1.5rem;
+      margin-bottom: 3.5rem;
+    }
+    .section-number {
+      font-family: 'DM Serif Display', serif;
+      font-size: 0.85rem;
+      color: var(--accent);
+    }
+    .section-title {
+      font-family: 'DM Serif Display', serif;
+      font-size: clamp(1.8rem, 3vw, 2.6rem);
+    }
+
+    /* ABOUT */
+    #about { background: var(--card); border-top: 1px solid var(--rule); border-bottom: 1px solid var(--rule); }
+    .about-grid { display: grid; grid-template-columns: 5fr 4fr; gap: 5rem; align-items: start; }
+    .about-body p { color: var(--muted); margin-bottom: 1.2rem; font-size: 1.05rem; }
+    .skills-block { margin-top: 2rem; }
+    .skills-group { margin-bottom: 1.5rem; }
+    .skills-group-label {
+      font-size: 0.7rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 0.6rem;
+    }
+    .tag-row { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+    .tag {
+      background: var(--bg);
+      border: 1px solid var(--rule);
+      font-size: 0.78rem;
+      padding: 0.3rem 0.75rem;
+      border-radius: 2px;
+      color: var(--ink);
+    }
+    .lang-grid { display: grid; gap: 0.8rem; margin-top: 0; }
+    .lang-item { display: flex; justify-content: space-between; align-items: center; }
+    .lang-name { font-size: 0.9rem; }
+    .lang-level {
+      font-size: 0.7rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--muted);
+      background: var(--bg);
+      padding: 0.2rem 0.6rem;
+      border-radius: 2px;
+    }
+
+    /* EXPERIENCE */
+    #experience { }
+    .exp-list { display: flex; flex-direction: column; gap: 0; }
+    .exp-item {
+      display: grid;
+      grid-template-columns: 200px 1fr;
+      gap: 2rem;
+      padding: 2.5rem 0;
+      border-top: 1px solid var(--rule);
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.5s ease, transform 0.5s ease;
+    }
+    .exp-item.visible { opacity: 1; transform: none; }
+    .exp-meta { padding-top: 0.2rem; }
+    .exp-date { font-size: 0.78rem; color: var(--muted); letter-spacing: 0.05em; margin-bottom: 0.4rem; }
+    .exp-org { font-size: 0.85rem; font-weight: 500; }
+    .exp-title { font-family: 'DM Serif Display', serif; font-size: 1.3rem; margin-bottom: 1rem; }
+    .exp-bullets { list-style: none; display: flex; flex-direction: column; gap: 0.55rem; }
+    .exp-bullets li { font-size: 0.92rem; color: var(--muted); padding-left: 1.2rem; position: relative; }
+    .exp-bullets li::before { content: '—'; position: absolute; left: 0; color: var(--accent); }
+
+    /* PROJECTS */
+    #projects { background: var(--card); border-top: 1px solid var(--rule); border-bottom: 1px solid var(--rule); }
+    .projects-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
+    .project-card {
+      border: 1px solid var(--rule);
+      padding: 2rem;
+      border-radius: 4px;
+      background: var(--bg);
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .project-card:hover { transform: translateY(-4px); box-shadow: 0 12px 32px rgba(0,0,0,0.07); }
+    .project-tag {
+      font-size: 0.68rem; letter-spacing: 0.12em; text-transform: uppercase;
+      color: var(--accent); margin-bottom: 1rem;
+    }
+    .project-title { font-family: 'DM Serif Display', serif; font-size: 1.2rem; margin-bottom: 0.8rem; }
+    .project-desc { font-size: 0.88rem; color: var(--muted); line-height: 1.6; }
+
+    /* CONTACT */
+    #contact { }
+    .contact-inner {
+      max-width: 560px;
+    }
+    .contact-intro { font-size: 1.05rem; color: var(--muted); margin-bottom: 3rem; }
+    .contact-form { display: flex; flex-direction: column; gap: 1.2rem; }
+    .form-group { display: flex; flex-direction: column; gap: 0.4rem; }
+    label { font-size: 0.75rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); }
+    input, textarea {
+      background: var(--card);
+      border: 1px solid var(--rule);
+      border-radius: 2px;
+      padding: 0.85rem 1rem;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.95rem;
+      color: var(--ink);
+      transition: border-color 0.2s;
+      outline: none;
+    }
+    input:focus, textarea:focus { border-color: var(--ink); }
+    textarea { resize: vertical; min-height: 130px; }
+    .form-submit {
+      display: inline-flex; align-items: center; gap: 0.6rem;
+      padding: 0.9rem 2.2rem;
+      background: var(--ink); color: #fff;
+      font-size: 0.8rem; letter-spacing: 0.1em; text-transform: uppercase;
+      border: none; border-radius: 2px; cursor: pointer;
+      font-family: 'DM Sans', sans-serif;
+      transition: background 0.2s, transform 0.15s;
+      width: fit-content;
+    }
+    .form-submit:hover { background: var(--accent); transform: translateY(-2px); }
+    .contact-links { margin-top: 3rem; display: flex; gap: 2rem; }
+    .contact-link {
+      display: flex; flex-direction: column; gap: 0.3rem;
+      text-decoration: none;
+    }
+    .contact-link-label { font-size: 0.68rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); }
+    .contact-link-value { font-size: 0.9rem; color: var(--ink); border-bottom: 1px solid var(--rule); padding-bottom: 2px; transition: border-color 0.2s, color 0.2s; }
+    .contact-link:hover .contact-link-value { color: var(--accent); border-color: var(--accent); }
+
+    /* FOOTER */
+    footer {
+      padding: 2rem 5vw;
+      border-top: 1px solid var(--rule);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.78rem;
+      color: var(--muted);
+    }
+
+    /* ANIMATIONS */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(28px); }
+      to { opacity: 1; transform: none; }
+    }
+
+    /* RESPONSIVE */
+    @media (max-width: 860px) {
+      #hero { grid-template-columns: 1fr; }
+      .about-grid { grid-template-columns: 1fr; }
+      .projects-grid { grid-template-columns: 1fr; }
+      .exp-item { grid-template-columns: 1fr; gap: 0.5rem; }
+      .hero-stat-grid { grid-template-columns: 1fr; }
+      .hero-stat-grid .stat-card:first-child { grid-column: 1; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a href="#hero" class="nav-logo">Josue A. Aguilar</a>
+    <ul class="nav-links">
+      <li><a href="#about">About</a></li>
+      <li><a href="#experience">Experience</a></li>
+      <li><a href="#projects">Work</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </nav>
+
+  <!-- HERO -->
+  <section id="hero">
+    <div class="hero-text">
+      <p class="hero-eyebrow">Communications &amp; Operations</p>
+      <h1 class="hero-name">Josue A.<br><em>Aguilar</em></h1>
+      <p class="hero-bio">New York City–based professional with 5+ years bridging communications, operations, and stakeholder relations for mission-driven organizations.</p>
+      <a href="#contact" class="hero-cta">Get in Touch</a>
+    </div>
+    <div class="hero-stat-grid">
+      <div class="stat-card">
+        <div class="stat-num">5+</div>
+        <div class="stat-label">Years of Experience</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num">45+</div>
+        <div class="stat-label">Annual Campaigns Managed</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num">3</div>
+        <div class="stat-label">Languages Spoken</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section id="about">
+    <div class="section-header">
+      <span class="section-number">01</span>
+      <h2 class="section-title">About Me</h2>
+    </div>
+    <div class="about-grid">
+      <div class="about-body">
+        <p>I'm a communications and operations professional with a background supporting non-profits, advocacy organizations, and security firms. My work sits at the intersection of clear communication, organized systems, and meaningful stakeholder relationships.</p>
+        <p>At NRDC, I coordinated 45+ annual campaigns, managed Salesforce-based donor tracking, and served as the primary liaison for hundreds of weekly inquiries. At Pinkerton, I produced intelligence briefs and coordinated rapid-response planning. Today I also volunteer as a paralegal and interpreter for refugee clients at Catholic Charities.</p>
+        <p>I hold a B.A. in International Relations from Tufts University (Dean's List) and bring multilingual skills — Spanish, French, and Arabic — to every team I join.</p>
+        <div class="skills-block">
+          <div class="skills-group">
+            <div class="skills-group-label">Operations &amp; Coordination</div>
+            <div class="tag-row">
+              <span class="tag">Project Management</span>
+              <span class="tag">Stakeholder Relations</span>
+              <span class="tag">Event Coordination</span>
+              <span class="tag">Research Briefs</span>
+              <span class="tag">Rapid Response</span>
+            </div>
+          </div>
+          <div class="skills-group">
+            <div class="skills-group-label">Platforms &amp; Tools</div>
+            <div class="tag-row">
+              <span class="tag">Salesforce</span>
+              <span class="tag">Asana</span>
+              <span class="tag">Power BI</span>
+              <span class="tag">Tableau</span>
+              <span class="tag">Adobe</span>
+              <span class="tag">Cision</span>
+              <span class="tag">Action Kit</span>
+            </div>
+          </div>
+          <div class="skills-group">
+            <div class="skills-group-label">Communication</div>
+            <div class="tag-row">
+              <span class="tag">Memo &amp; Report Writing</span>
+              <span class="tag">Newsletters</span>
+              <span class="tag">Background Materials</span>
+              <span class="tag">Presentations</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div>
+        <div class="skills-group-label" style="margin-bottom:1rem;">Languages</div>
+        <div class="lang-grid">
+          <div class="lang-item"><span class="lang-name">Spanish</span><span class="lang-level">Fluent</span></div>
+          <div class="lang-item"><span class="lang-name">French</span><span class="lang-level">Proficient</span></div>
+          <div class="lang-item"><span class="lang-name">Modern Standard Arabic</span><span class="lang-level">Basic</span></div>
+          <div class="lang-item"><span class="lang-name">English</span><span class="lang-level">Native</span></div>
+        </div>
+        <div style="margin-top:3rem;">
+          <div class="skills-group-label" style="margin-bottom:1rem;">Education</div>
+          <div style="font-family:'DM Serif Display',serif; font-size:1.1rem; margin-bottom:0.3rem;">B.A. International Relations</div>
+          <div style="font-size:0.88rem; color:var(--muted);">Tufts University · Dean's List</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- EXPERIENCE -->
+  <section id="experience">
+    <div class="section-header">
+      <span class="section-number">02</span>
+      <h2 class="section-title">Experience</h2>
+    </div>
+    <div class="exp-list">
+
+      <div class="exp-item">
+        <div class="exp-meta">
+          <div class="exp-date">Feb 2026 – Present</div>
+          <div class="exp-org">Concerts for Compassion</div>
+        </div>
+        <div>
+          <div class="exp-title">Advisory Board Member</div>
+          <ul class="exp-bullets">
+            <li>Advise on donor communication campaigns, fundraising event planning, and strategic messaging to enhance supporter cultivation and long-term retention.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="exp-item">
+        <div class="exp-meta">
+          <div class="exp-date">Jan 2026 – Present</div>
+          <div class="exp-org">Catholic Charities — Immigrant &amp; Refugee Services</div>
+        </div>
+        <div>
+          <div class="exp-title">Volunteer Paralegal / Interpreter</div>
+          <ul class="exp-bullets">
+            <li>Conduct intake interviews and provide interpretation during legal-aid workshops for refugee clients.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="exp-item">
+        <div class="exp-meta">
+          <div class="exp-date">May 2024 – Aug 2024</div>
+          <div class="exp-org">Pinkerton · New York, NY</div>
+        </div>
+        <div>
+          <div class="exp-title">GSOC Support Operator (Research Associate)</div>
+          <ul class="exp-bullets">
+            <li>Produced approximately three weekly intelligence briefs synthesizing media analysis and research into actionable reports for leadership decision-making.</li>
+            <li>Coordinated operational timelines and client communications to support rapid-response planning across teams.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="exp-item">
+        <div class="exp-meta">
+          <div class="exp-date">Jul 2018 – Oct 2023</div>
+          <div class="exp-org">NRDC · New York, NY</div>
+        </div>
+        <div>
+          <div class="exp-title">Communications Associate</div>
+          <ul class="exp-bullets">
+            <li>Coordinated timelines, deliverables, and stakeholder communications for 45+ annual advocacy and fundraising campaigns using Asana.</li>
+            <li>Tracked donor and stakeholder engagement in Salesforce using custom reports and dashboards; monitored campaign performance metrics.</li>
+            <li>Supported grant-funded initiatives by helping secure grants, coordinating with external partners, and ensuring funds were used and reported correctly.</li>
+            <li>Prepared newsletters and communications for internal and external engagements, including 35+ monthly fundraising and advocacy emails.</li>
+            <li>Served as primary liaison resolving ~350 weekly inquiries from stakeholders; streamlined processes by 25% through automated workflow tools.</li>
+            <li>Managed ongoing communications and contracts with 7 consultants and vendors monthly.</li>
+            <li>Delivered onboarding and training to new staff and interns on organizational processes and tools.</li>
+          </ul>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- PROJECTS / WORK -->
+  <section id="projects">
+    <div class="section-header">
+      <span class="section-number">03</span>
+      <h2 class="section-title">Selected Work</h2>
+    </div>
+    <div class="projects-grid">
+      <div class="project-card">
+        <div class="project-tag">Campaign Management</div>
+        <div class="project-title">45+ Annual Advocacy Campaigns at NRDC</div>
+        <p class="project-desc">Oversaw end-to-end coordination of advocacy and fundraising campaigns — from timeline setting and stakeholder communication to reporting and on-time execution using Asana.</p>
+      </div>
+      <div class="project-card">
+        <div class="project-tag">Intelligence & Analysis</div>
+        <div class="project-title">Weekly Intelligence Briefs at Pinkerton</div>
+        <p class="project-desc">Synthesized open-source media analysis and research into concise, actionable intelligence briefs delivered weekly to senior leadership to inform rapid-response decisions.</p>
+      </div>
+      <div class="project-card">
+        <div class="project-tag">Donor Relations</div>
+        <div class="project-title">Salesforce Donor Tracking System</div>
+        <p class="project-desc">Built and maintained custom Salesforce reports and dashboards tracking donor engagement, campaign performance, and grant-funded project compliance across the organization.</p>
+      </div>
+      <div class="project-card">
+        <div class="project-tag">Communications</div>
+        <div class="project-title">35+ Monthly Fundraising Emails</div>
+        <p class="project-desc">Wrote and coordinated production of over 35 monthly fundraising and advocacy emails — managing copy, design approvals, segmentation, and deployment logistics.</p>
+      </div>
+      <div class="project-card">
+        <div class="project-tag">Operations</div>
+        <div class="project-title">Stakeholder Inquiry Workflow Redesign</div>
+        <p class="project-desc">Identified inefficiencies in the stakeholder inquiry process and implemented automated workflow tools that reduced response overhead by 25%, handling ~350 inquiries weekly.</p>
+      </div>
+      <div class="project-card">
+        <div class="project-tag">Community</div>
+        <div class="project-title">Refugee Legal Aid Interpretation</div>
+        <p class="project-desc">Volunteer paralegal and interpreter at Catholic Charities, conducting intake interviews and supporting legal-aid workshops for immigrant and refugee clients in New York City.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact">
+    <div class="section-header">
+      <span class="section-number">04</span>
+      <h2 class="section-title">Get in Touch</h2>
+    </div>
+    <div class="contact-inner">
+      <p class="contact-intro">Whether you're looking to collaborate, hire, or just connect — I'd love to hear from you.</p>
+      <form class="contact-form" onsubmit="handleSubmit(event)">
+        <div class="form-group">
+          <label for="name">Name</label>
+          <input type="text" id="name" placeholder="Your name" required />
+        </div>
+        <div class="form-group">
+          <label for="email">Email</label>
+          <input type="email" id="email" placeholder="your@email.com" required />
+        </div>
+        <div class="form-group">
+          <label for="message">Message</label>
+          <textarea id="message" placeholder="What's on your mind?" required></textarea>
+        </div>
+        <button type="submit" class="form-submit">Send Message →</button>
+        <div id="form-success" style="display:none; color:var(--accent); font-size:0.9rem; margin-top:0.5rem;">Thanks! I'll be in touch soon.</div>
+      </form>
+      <div class="contact-links">
+        <a href="mailto:josueaaguilar1@outlook.com" class="contact-link">
+          <span class="contact-link-label">Email</span>
+          <span class="contact-link-value">josueaaguilar1@outlook.com</span>
+        </a>
+        <a href="https://linkedin.com/in/josueaguilar1" target="_blank" class="contact-link">
+          <span class="contact-link-label">LinkedIn</span>
+          <span class="contact-link-value">josueaguilar1</span>
+        </a>
+        <a href="tel:6469191071" class="contact-link">
+          <span class="contact-link-label">Phone</span>
+          <span class="contact-link-value">646.919.1071</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <span>© 2026 Josue A. Aguilar</span>
+    <span>New York City</span>
+  </footer>
+
+  <script>
+    // Scroll animation for experience items
+    const items = document.querySelectorAll('.exp-item');
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+    }, { threshold: 0.15 });
+    items.forEach(i => observer.observe(i));
+
+    // Contact form
+    function handleSubmit(e) {
+      e.preventDefault();
+      document.getElementById('form-success').style.display = 'block';
+      e.target.reset();
+    }
+  </script>
+</body>
+</html>
